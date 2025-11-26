@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductsService } from '../../services/products.service';
 import { CartService } from '../../services/cart.service';
+import { ConfectionerService } from '../../services/confectioner.service';
 import { Product, Category } from '../../models/product.model';
 
 @Component({
@@ -13,9 +14,12 @@ import { Product, Category } from '../../models/product.model';
   styleUrl: './home.scss',
 })
 export class Home implements OnInit {
+  private confectionerService = inject(ConfectionerService);
+  
   categories: Category[] = [];
   featuredProducts: Product[] = [];
   searchTerm: string = '';
+  confectionerName = '';
 
   constructor(
     private productsService: ProductsService,
@@ -24,8 +28,16 @@ export class Home implements OnInit {
   ) {}
 
   ngOnInit() {
+    const selectedConfectioner = this.confectionerService.selectedConfectioner();
+    
+    if (!selectedConfectioner) {
+      this.router.navigate(['/selecionar-confeiteiro']);
+      return;
+    }
+    
+    this.confectionerName = selectedConfectioner.name;
     this.categories = this.productsService.getCategories();
-    this.featuredProducts = this.productsService.getFeaturedProducts();
+    this.featuredProducts = this.productsService.getFeaturedProducts(selectedConfectioner.id);
   }
 
   search() {
@@ -45,5 +57,10 @@ export class Home implements OnInit {
   addToCart(event: Event, produto: Product) {
     event.stopPropagation();
     this.cartService.addItem(produto, 1);
+  }
+
+  changeConfectioner() {
+    this.confectionerService.clearSelection();
+    this.router.navigate(['/selecionar-confeiteiro']);
   }
 }

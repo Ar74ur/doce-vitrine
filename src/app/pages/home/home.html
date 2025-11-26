@@ -2,8 +2,11 @@
   <!-- Banner -->
   <section class="banner">
     <div class="banner-content">
-      <h2>Bem-vindo à Doce Vitrine!</h2>
+      <h2>{{ confectionerName }}</h2>
       <p>Doces artesanais feitos com carinho</p>
+      <button class="btn-change-confectioner" (click)="changeConfectioner()">
+        🔄 Trocar Confeiteiro
+      </button>
     </div>
   </section>
 

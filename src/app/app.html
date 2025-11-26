@@ -1,7 +1,11 @@
 <div class="app-container">
   <header class="app-header">
     <div class="header-content">
-      <h1 class="logo">🍰 Doce Vitrine</h1>
+      <a routerLink="/home" class="logo">🍰 Doce Vitrine</a>
+      <div class="user-info">
+        <span class="user-badge">{{ authService.currentUser()?.type === 'customer' ? '🛒' : '👨‍🍳' }} {{ authService.currentUser()?.name }}</span>
+        <button class="btn-switch" (click)="toggleUserSwitcher()">🔄</button>
+      </div>
     </div>
   </header>
 
@@ -18,9 +22,16 @@
       <span class="nav-icon">🎂</span>
       <span class="nav-label">Produtos</span>
     </a>
-    <a routerLink="/carrinho" routerLinkActive="active" class="nav-item">
-      <span class="nav-icon">🛒</span>
-      <span class="nav-label">Carrinho</span>
-    </a>
+    @if (authService.isConfectioner()) {
+      <a routerLink="/admin" routerLinkActive="active" class="nav-item">
+        <span class="nav-icon">⚙️</span>
+        <span class="nav-label">Gerenciar</span>
+      </a>
+    } @else {
+      <a routerLink="/carrinho" routerLinkActive="active" class="nav-item">
+        <span class="nav-icon">🛒</span>
+        <span class="nav-label">Carrinho</span>
+      </a>
+    }
   </nav>
 </div>

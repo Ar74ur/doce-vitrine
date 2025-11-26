@@ -1,0 +1,168 @@
+<div class="admin-container">
+  <div class="admin-header">
+    <h1>🧑‍🍳 Gerenciamento de Produtos</h1>
+    <button class="btn-add" (click)="openForm()">
+      ➕ Adicionar Produto
+    </button>
+  </div>
+
+  <div class="products-grid">
+    @for (product of products(); track product.id) {
+      <div class="product-card">
+        <div class="product-image">
+          <img [src]="product.image" [alt]="product.name" />
+          <span class="featured-badge" [class.active]="product.featured">
+            {{ product.featured ? '⭐ Destaque' : '☆' }}
+          </span>
+        </div>
+
+        <div class="product-info">
+          <h3>{{ product.name }}</h3>
+          <p class="category">{{ product.category }}</p>
+          <p class="description">{{ product.description }}</p>
+          <p class="price">R$ {{ product.price.toFixed(2) }}</p>
+        </div>
+
+        <div class="product-actions">
+          <button class="btn-toggle" (click)="toggleFeatured(product)">
+            {{ product.featured ? 'Remover Destaque' : 'Destacar' }}
+          </button>
+          <button class="btn-edit" (click)="openForm(product)">
+            ✏️ Editar
+          </button>
+          <button class="btn-delete" (click)="deleteProduct(product.id)">
+            🗑️ Excluir
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (showForm()) {
+    <div class="modal-overlay" (click)="closeForm()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2>{{ editingProduct() ? 'Editar Produto' : 'Novo Produto' }}</h2>
+          <button class="btn-close" (click)="closeForm()">✕</button>
+        </div>
+
+        <form class="product-form" (submit)="$event.preventDefault(); saveProduct()">
+          <div class="form-group">
+            <label>Nome do Produto *</label>
+            <input
+              type="text"
+              [(ngModel)]="formData.name"
+              name="name"
+              placeholder="Ex: Bolo de Chocolate"
+              required />
+          </div>
+
+          <div class="form-group">
+            <label>Descrição *</label>
+            <textarea
+              [(ngModel)]="formData.description"
+              name="description"
+              placeholder="Descreva o produto..."
+              rows="3"
+              required></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Preço (R$) *</label>
+              <input
+                type="number"
+                [(ngModel)]="formData.price"
+                name="price"
+                step="0.01"
+                min="0"
+                placeholder="0.00"
+                required />
+            </div>
+
+            <div class="form-group">
+              <label>Categoria *</label>
+              <select [(ngModel)]="formData.category" name="category" required>
+                <option value="">Selecione...</option>
+                @for (category of categories(); track category.id) {
+                  <option [value]="category.name">{{ category.icon }} {{ category.name }}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Imagem do Produto *</label>
+            
+            <div class="upload-method-selector">
+              <button 
+                type="button"
+                class="method-btn"
+                [class.active]="uploadMethod() === 'url'"
+                (click)="setUploadMethod('url')">
+                🔗 URL
+              </button>
+              <button 
+                type="button"
+                class="method-btn"
+                [class.active]="uploadMethod() === 'file'"
+                (click)="setUploadMethod('file')">
+                📁 Upload
+              </button>
+            </div>
+
+            @if (uploadMethod() === 'url') {
+              <input
+                type="url"
+                [(ngModel)]="formData.image"
+                (ngModelChange)="updateImagePreview()"
+                name="image"
+                placeholder="https://exemplo.com/imagem.jpg"
+                required />
+            } @else {
+              <input
+                type="file"
+                accept="image/*"
+                (change)="onImageFileSelected($event)"
+                class="file-input"
+                name="imageFile" />
+              <small class="file-hint">💡 Máximo 2MB - Formatos: JPG, PNG, GIF, WebP</small>
+            }
+
+            @if (imagePreview()) {
+              <div class="image-preview">
+                <img [src]="imagePreview()" alt="Preview" />
+              </div>
+            }
+          </div>
+
+          <div class="form-group checkbox-group">
+            <label>
+              <input
+                type="checkbox"
+                [(ngModel)]="formData.featured"
+                name="featured" />
+              <span>Produto em destaque</span>
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-cancel" (click)="closeForm()">
+              Cancelar
+            </button>
+            <button type="submit" class="btn-save">
+              {{ editingProduct() ? 'Atualizar' : 'Adicionar' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  @if (products().length === 0) {
+    <div class="empty-state">
+      <p>📦 Nenhum produto cadastrado</p>
+      <p>Comece adicionando seu primeiro produto!</p>
+    </div>
+  }
+</div>

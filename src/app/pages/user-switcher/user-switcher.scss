@@ -1,0 +1,141 @@
+.user-switcher {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+
+  .switcher-container {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
+
+    .current-user {
+      text-align: center;
+      color: #7f8c8d;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+
+      strong {
+        color: #e91e63;
+      }
+    }
+
+    .user-options {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+
+      .user-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+        border: 3px solid #e0e0e0;
+        border-radius: 15px;
+        background: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+
+        &:hover {
+          border-color: #e91e63;
+          transform: translateY(-5px);
+          box-shadow: 0 5px 20px rgba(233, 30, 99, 0.2);
+        }
+
+        &.active {
+          border-color: #e91e63;
+          background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+          box-shadow: 0 5px 20px rgba(233, 30, 99, 0.3);
+
+          .icon {
+            transform: scale(1.2);
+          }
+        }
+
+        .icon {
+          font-size: 3rem;
+          margin-bottom: 1rem;
+          transition: transform 0.3s ease;
+        }
+
+        .name {
+          font-size: 1.5rem;
+          font-weight: bold;
+          color: #2c3e50;
+          margin-bottom: 0.5rem;
+        }
+
+        .description {
+          font-size: 0.9rem;
+          color: #7f8c8d;
+        }
+      }
+    }
+
+    .info-box {
+      background: #f8f9fa;
+      border-left: 4px solid #e91e63;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+
+      p {
+        margin: 0.5rem 0;
+        color: #2c3e50;
+        line-height: 1.6;
+      }
+
+      strong {
+        color: #e91e63;
+      }
+
+      ul {
+        margin: 1rem 0 0.5rem 1.5rem;
+        color: #555;
+
+        li {
+          margin: 0.5rem 0;
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    .switcher-container {
+      padding: 2rem 1.5rem;
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .user-options .user-option {
+        padding: 1.5rem;
+
+        .icon {
+          font-size: 2.5rem;
+        }
+
+        .name {
+          font-size: 1.3rem;
+        }
+      }
+    }
+  }
+}

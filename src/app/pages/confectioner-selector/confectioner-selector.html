@@ -1,0 +1,26 @@
+<div class="selector-container">
+  <div class="selector-header">
+    <h1>🍰 Bem-vindo ao Doce Vitrine!</h1>
+    <p>Escolha o confeiteiro para visualizar seus produtos</p>
+  </div>
+
+  <div class="confectioners-grid">
+    @for (confectioner of confectioners; track confectioner.id) {
+      <div class="confectioner-card" (click)="selectConfectioner(confectioner.id)">
+        <div class="avatar">{{ confectioner.avatar }}</div>
+        <h2>{{ confectioner.name }}</h2>
+        <p class="specialty">{{ confectioner.specialty }}</p>
+        <p class="description">{{ confectioner.description }}</p>
+        <div class="contact-info">
+          <span class="phone">📞 {{ confectioner.phone }}</span>
+          <span class="email">✉️ {{ confectioner.email }}</span>
+        </div>
+        <button class="btn-select">Ver Vitrine</button>
+      </div>
+    }
+  </div>
+
+  <div class="info-box">
+    <p>💡 <strong>Dica:</strong> Cada confeiteiro possui sua própria vitrine de produtos exclusivos!</p>
+  </div>
+</div>

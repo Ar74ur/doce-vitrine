@@ -1,0 +1,35 @@
+<div class="user-switcher">
+  <div class="switcher-container">
+    <h2>Alternar Perfil</h2>
+    <p class="current-user">Perfil atual: <strong>{{ authService.currentUser()?.name }}</strong></p>
+    
+    <div class="user-options">
+      <button 
+        class="user-option"
+        [class.active]="authService.isCustomer()"
+        (click)="switchUser('customer')">
+        <span class="icon">🛒</span>
+        <span class="name">Cliente</span>
+        <span class="description">Visualizar e comprar produtos</span>
+      </button>
+
+      <button 
+        class="user-option"
+        [class.active]="authService.isConfectioner()"
+        (click)="switchUser('confectioner')">
+        <span class="icon">👨‍🍳</span>
+        <span class="name">Confeiteiro</span>
+        <span class="description">Gerenciar produtos da vitrine</span>
+      </button>
+    </div>
+
+    <div class="info-box">
+      <p><strong>ℹ️ Informação:</strong></p>
+      <p>Esta funcionalidade permite alternar entre os perfis de usuário do sistema:</p>
+      <ul>
+        <li><strong>Cliente:</strong> Pode visualizar produtos, adicionar ao carrinho e fazer pedidos</li>
+        <li><strong>Confeiteiro:</strong> Pode adicionar, editar e remover produtos do catálogo</li>
+      </ul>
+    </div>
+  </div>
+</div>
