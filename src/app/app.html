@@ -1,0 +1,26 @@
+<div class="app-container">
+  <header class="app-header">
+    <div class="header-content">
+      <h1 class="logo">🍰 Doce Vitrine</h1>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <router-outlet />
+  </main>
+
+  <nav class="bottom-nav">
+    <a routerLink="/home" routerLinkActive="active" class="nav-item">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label">Início</span>
+    </a>
+    <a routerLink="/produtos" routerLinkActive="active" class="nav-item">
+      <span class="nav-icon">🎂</span>
+      <span class="nav-label">Produtos</span>
+    </a>
+    <a routerLink="/carrinho" routerLinkActive="active" class="nav-item">
+      <span class="nav-icon">🛒</span>
+      <span class="nav-label">Carrinho</span>
+    </a>
+  </nav>
+</div>

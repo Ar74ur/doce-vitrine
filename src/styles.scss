@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #FF6B9D;
+  --primary-dark: #E85A8A;
+  --secondary-color: #FFA8C5;
+  --accent-color: #FFD93D;
+  --background: #FFF5F7;
+  --surface: #FFFFFF;
+  --text-primary: #2D2D2D;
+  --text-secondary: #666666;
+  --text-light: #999999;
+  --border-color: #FFE4EC;
+  --shadow: 0 2px 8px rgba(255, 107, 157, 0.1);
+  --shadow-lg: 0 4px 16px rgba(255, 107, 157, 0.15);
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  outline: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}

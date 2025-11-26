@@ -1,0 +1,63 @@
+<div class="home-container">
+  <!-- Banner -->
+  <section class="banner">
+    <div class="banner-content">
+      <h2>Bem-vindo à Doce Vitrine!</h2>
+      <p>Doces artesanais feitos com carinho</p>
+    </div>
+  </section>
+
+  <!-- Busca -->
+  <section class="search-section">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        placeholder="Buscar doces..."
+        [(ngModel)]="searchTerm"
+        (input)="search()"
+      />
+    </div>
+  </section>
+
+  <!-- Categorias -->
+  <section class="categories-section">
+    <h3>Categorias</h3>
+    <div class="categories-grid">
+      @for (categoria of categories; track categoria.id) {
+        <div class="category-card" (click)="filterByCategory(categoria.name)">
+          <span class="category-icon">{{categoria.icon}}</span>
+          <span class="category-name">{{categoria.name}}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Produtos em Destaque -->
+  <section class="products-section">
+    <div class="section-header">
+      <h3>Produtos em Destaque</h3>
+      <a routerLink="/produtos" class="see-all">Ver todos</a>
+    </div>
+    <div class="products-grid">
+      @for (produto of featuredProducts; track produto.id) {
+        <div class="product-card" (click)="viewProduct(produto.id)">
+          <div class="product-image">
+            <img [src]="produto.image" [alt]="produto.name" />
+            <span class="badge-featured">⭐ Destaque</span>
+          </div>
+          <div class="product-info">
+            <h4>{{produto.name}}</h4>
+            <p class="product-category">{{produto.category}}</p>
+            <div class="product-footer">
+              <span class="product-price">R$ {{produto.price.toFixed(2)}}</span>
+              <button class="btn-add" (click)="addToCart($event, produto)">
+                <span>➕</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+</div>

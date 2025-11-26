@@ -1,0 +1,68 @@
+<div class="products-container">
+  <!-- Header com busca e filtros -->
+  <div class="products-header">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        placeholder="Buscar doces..."
+        [(ngModel)]="searchTerm"
+        (input)="searchProducts()"
+      />
+    </div>
+  </div>
+
+  <!-- Filtro de categorias -->
+  <div class="filters-section">
+    <div class="filters-scroll">
+      <button
+        class="filter-btn"
+        [class.active]="categoryFilter === 'Todos'"
+        (click)="filterByCategory('Todos')">
+        Todos
+      </button>
+      @for (categoria of categories; track categoria.id) {
+        <button
+          class="filter-btn"
+          [class.active]="categoryFilter === categoria.name"
+          (click)="filterByCategory(categoria.name)">
+          {{categoria.icon}} {{categoria.name}}
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Lista de produtos -->
+  <div class="products-list">
+    @if (filteredProducts.length === 0) {
+      <div class="empty-state">
+        <span class="empty-icon">😢</span>
+        <p>Nenhum produto encontrado</p>
+      </div>
+    } @else {
+      <div class="products-grid">
+        @for (produto of filteredProducts; track produto.id) {
+          <div class="product-card" (click)="viewProduct(produto.id)">
+            <div class="product-image">
+              <img [src]="produto.image" [alt]="produto.name" />
+              @if (produto.featured) {
+                <span class="badge-featured">⭐ Destaque</span>
+              }
+            </div>
+            <div class="product-info">
+              <h4>{{produto.name}}</h4>
+              <p class="product-desc">{{produto.description}}</p>
+              <span class="product-category">{{produto.category}}</span>
+              <div class="product-footer">
+                <span class="product-price">R$ {{produto.price.toFixed(2)}}</span>
+                <button class="btn-add" (click)="addToCart($event, produto)">
+                  <span>➕</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

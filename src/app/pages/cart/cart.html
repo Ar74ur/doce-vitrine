@@ -1,0 +1,65 @@
+<div class="cart-container">
+  <div class="cart-header">
+    <h2>🛍 Meu Carrinho</h2>
+  </div>
+
+  @if (cartItems().length === 0) {
+    <div class="empty-cart">
+      <span class="empty-icon">🛒</span>
+      <h3>Seu carrinho está vazio</h3>
+      <p>Adicione produtos deliciosos para começar!</p>
+      <button class="btn-continue" routerLink="/produtos">
+        Ver Produtos
+      </button>
+    </div>
+  } @else {
+    <div class="cart-content">
+      <div class="items-list">
+        @for (item of cartItems(); track item.product.id) {
+          <div class="item-card">
+            <div class="item-image">
+              <img [src]="item.product.image" [alt]="item.product.name" />
+            </div>
+            <div class="item-info">
+              <h4>{{item.product.name}}</h4>
+              <p class="item-category">{{item.product.category}}</p>
+              <span class="item-price">R$ {{item.product.price.toFixed(2)}}</span>
+            </div>
+            <div class="item-actions">
+              <div class="quantity-controls">
+                <button class="btn-qty" (click)="decreaseQuantity(item.product.id)">−</button>
+                <span class="quantity">{{item.quantity}}</span>
+                <button class="btn-qty" (click)="increaseQuantity(item.product.id)">+</button>
+              </div>
+              <button class="btn-remove" (click)="removeItem(item.product.id)">
+                🗑️
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="summary-card">
+        <h3>Resumo do Pedido</h3>
+        <div class="summary-line">
+          <span>Subtotal</span>
+          <span>R$ {{totalPrice().toFixed(2)}}</span>
+        </div>
+        <div class="summary-line">
+          <span>Total de itens</span>
+          <span>{{totalItems()}}</span>
+        </div>
+        <div class="summary-total">
+          <span>Total</span>
+          <span>R$ {{totalPrice().toFixed(2)}}</span>
+        </div>
+        <button class="btn-checkout" (click)="checkout()">
+          Finalizar Pedido
+        </button>
+        <button class="btn-clear" (click)="clearCart()">
+          Limpar Carrinho
+        </button>
+      </div>
+    </div>
+  }
+</div>

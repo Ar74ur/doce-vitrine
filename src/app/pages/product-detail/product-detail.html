@@ -1,0 +1,49 @@
+<div class="detail-container" *ngIf="product">
+  <div class="detail-header">
+    <button class="btn-back" (click)="goBack()">←</button>
+    <h2>Detalhes do Produto</h2>
+  </div>
+
+  <div class="product-image-large">
+    <img [src]="product.image" [alt]="product.name" />
+    @if (product.featured) {
+      <span class="badge-featured">⭐ Produto em Destaque</span>
+    }
+  </div>
+
+  <div class="detail-products">
+    <div class="product-header">
+      <h1>{{product.name}}</h1>
+      <span class="category-tag">{{product.category}}</span>
+    </div>
+
+    <p class="product-description">{{product.description}}</p>
+
+    <div class="price-section">
+      <span class="price">R$ {{product.price.toFixed(2)}}</span>
+    </div>
+
+    <div class="quantity-section">
+      <label>Quantidade:</label>
+      <div class="quantity-controls">
+        <button class="btn-qty" (click)="decreaseQuantity()">−</button>
+        <span class="quantity">{{quantity}}</span>
+        <button class="btn-qty" (click)="increaseQuantity()">+</button>
+      </div>
+    </div>
+
+    <div class="total-section">
+      <span>Total:</span>
+      <span class="total-price">R$ {{(product.price * quantity).toFixed(2)}}</span>
+    </div>
+
+    <button class="btn-add" (click)="addToCart()">
+      🛑 Adicionar ao Carrinho
+    </button>
+  </div>
+</div>
+
+<div class="empty-state" *ngIf="!product">
+  <p>Produto não encontrado</p>
+  <button class="btn-back" (click)="goBack()">Voltar</button>
+</div>
